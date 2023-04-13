@@ -19,7 +19,9 @@
         <h1>Bullying</h1>
       </div>
       <div class="quiz-container">
-        <button class="quiz-button">COMEÇAR AQUI</button>
+        <button class="quiz-button" onclick="comecarQuiz()">
+          COMEÇAR QUIZ
+        </button>
       </div>
     </header>
     <div class="container">
@@ -68,8 +70,16 @@
           respeitoso para todos.
         </p>
       </section>
+      <section class="quiz-section" id="quiz" style="display: none">
+        <div class="quiz" id="quiz">
+          <h2 id="pergunta"></h2>
+          <div id="opcoes"></div>
+          <p id="explicacao"></p>
+        </div>
+      </section>
     </div>
     <footer style="color: white">@jvitorbarbosa_</footer>
+    <script src="script.js"></script>
   </body>
 </html>
 
