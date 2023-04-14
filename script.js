@@ -20,98 +20,209 @@ let perguntas = [
       "Resposta incorreta. Bullying é a prática de atos agressivos repetidos, intencionais e sistematizados contra uma pessoa.",
   },
   {
-    pergunta: "Qual é o resultado da equação 2 + 2?",
+    pergunta:
+      "Quais são as consequências do bullying para a saúde mental da vítima?",
     opcoes: [
       {
-        opcao: "4",
+        opcao: "Aumento da autoconfiança",
+        correta: false,
+      },
+      {
+        opcao: "Baixa autoestima e depressão",
         correta: true,
       },
       {
-        opcao: "3",
-        correta: false,
-      },
-      {
-        opcao: "5",
+        opcao: "Maior capacidade de lidar com situações difíceis",
         correta: false,
       },
     ],
-    explicacao: "Resposta incorreta. 2 + 2 é igual a 4.",
+    explicacao:
+      "Resposta incorreta. As consequências do bullying para a saúde mental da vítima incluem baixa autoestima e depressão.",
+  },
+  {
+    pergunta: "Qual é a importância de denunciar casos de bullying?",
+    opcoes: [
+      {
+        opcao: "Prevenir futuros casos",
+        correta: true,
+      },
+      {
+        opcao: "Causar mais conflitos",
+        correta: false,
+      },
+      {
+        opcao: "Aumentar a popularidade da vítima",
+        correta: false,
+      },
+    ],
+    explicacao:
+      "Resposta incorreta. A importância de denunciar casos de bullying é prevenir futuros casos.",
+  },
+  {
+    pergunta:
+      "O que pode ser feito para ajudar uma pessoa que está sofrendo bullying?",
+    opcoes: [
+      {
+        opcao: "Ignorar a situação",
+        correta: false,
+      },
+      {
+        opcao: "Rir junto com o agressor",
+        correta: false,
+      },
+      {
+        opcao: "Ouvir e apoiar a pessoa",
+        correta: true,
+      },
+    ],
+    explicacao:
+      "Resposta incorreta. O que pode ser feito para ajudar uma pessoa que está sofrendo bullying é ouvir e apoiar a pessoa.",
+  },
+  {
+    pergunta: "Quais são as principais formas de bullying?",
+    opcoes: [
+      {
+        opcao: "Tecnológico e financeiro",
+        correta: false,
+      },
+      {
+        opcao: "Verbal, físico e psicológico",
+        correta: true,
+      },
+      {
+        opcao: "Artístico e esportivo",
+        correta: false,
+      },
+    ],
+    explicacao:
+      "Resposta incorreta. As principais formas de bullying são verbal, físico e psicológico.",
+  },
+  {
+    pergunta:
+      "Por que é importante ensinar valores como empatia e respeito desde a infância?",
+    opcoes: [
+      {
+        opcao: "Para estimular a competitividade",
+        correta: false,
+      },
+      {
+        opcao: "Para fortalecer a intolerância",
+        correta: false,
+      },
+      {
+        opcao: "Para prevenir comportamentos agressivos",
+        correta: true,
+      },
+    ],
+    explicacao:
+      "Resposta incorreta. É importante ensinar valores como empatia e respeito desde a infância para prevenir comportamentos agressivos e promover um ambiente de convivência saudável e respeitoso.",
   },
 ];
 
-let perguntaAtual = 0;
+const perguntaAtual = 0;
 
 function comecarQuiz() {
-  document.getElementById("quiz").style.display = "block";
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.style.display = "block";
   exibirPergunta(perguntaAtual);
 }
 
-function exibirPergunta(numPergunta) {
-  let pergunta = perguntas[numPergunta];
-  let divPergunta = document.getElementById("pergunta");
+function exibirPergunta(indicePergunta) {
+  const pergunta = perguntas[indicePergunta];
+  const divPergunta = document.getElementById("pergunta");
   divPergunta.innerHTML = "";
 
-  let tituloPergunta = document.createElement("h2");
-  tituloPergunta.innerText = `Pergunta ${numPergunta + 1}:`;
-  divPergunta.appendChild(tituloPergunta);
+  // criar contêiner para título e texto da pergunta
+  const containerPergunta = document.createElement("div");
+  containerPergunta.classList.add("container-pergunta");
 
-  let textoPergunta = document.createElement("p");
-  textoPergunta.innerText = pergunta.pergunta;
-  divPergunta.appendChild(textoPergunta);
+  // criar título da pergunta
+  const tituloPergunta = document.createElement("h2");
+  tituloPergunta.textContent = `Pergunta ${indicePergunta + 1}:`;
+  containerPergunta.appendChild(tituloPergunta);
 
-  let listaOpcoes = document.createElement("ul");
+  // criar texto da pergunta
+  const textoPergunta = document.createElement("p");
+  textoPergunta.classList.add("quiz-text");
+  textoPergunta.textContent = pergunta.pergunta;
+  containerPergunta.appendChild(textoPergunta);
+
+  divPergunta.appendChild(containerPergunta);
+
+  // criar lista de opções
+  const listaOpcoes = document.createElement("ul");
+  listaOpcoes.classList.add("quiz-options");
   for (let i = 0; i < pergunta.opcoes.length; i++) {
-    let opcao = pergunta.opcoes[i];
-    let itemLista = document.createElement("li");
-    let radioOpcao = document.createElement("input");
+    const opcao = pergunta.opcoes[i];
+    const itemLista = document.createElement("li");
+    itemLista.classList.add("quiz-option-label");
+
+    // criar input de opção
+    const radioOpcao = document.createElement("input");
+    radioOpcao.classList.add("quiz-input");
     radioOpcao.type = "radio";
-    radioOpcao.name = `q${numPergunta}`;
+    radioOpcao.name = `q${indicePergunta}`;
     radioOpcao.value = i;
     itemLista.appendChild(radioOpcao);
-    let textoOpcao = document.createTextNode(opcao.opcao);
-    itemLista.appendChild(textoOpcao);
+
+    // criar label da opção
+    const labelOpcao = document.createElement("label");
+    labelOpcao.classList.add("quiz-option-text");
+    labelOpcao.textContent = opcao.opcao;
+    itemLista.appendChild(labelOpcao);
+
     listaOpcoes.appendChild(itemLista);
   }
+
   divPergunta.appendChild(listaOpcoes);
 
-  let botaoResponder = document.createElement("button");
-  botaoResponder.innerText = "Responder";
+  // criar botão de resposta
+  const botaoResponder = document.createElement("button");
+  botaoResponder.textContent = "RESPONDER";
+  botaoResponder.classList.add("botao-responder"); // adiciona a classe "botao-responder"
   botaoResponder.onclick = () => {
-    verificarResposta(numPergunta);
+    verificarResposta(indicePergunta);
   };
   divPergunta.appendChild(botaoResponder);
 
-  let explicacao = document.createElement("p");
-  explicacao.id = `explicacao${numPergunta}`;
+  // criar explicação da resposta
+  const divError = document.createElement("div");
+  divError.classList.add("container-error");
+
+  const explicacao = document.createElement("p");
+  explicacao.classList.add("mensagem-erro");
+  explicacao.id = `explicacao${indicePergunta}`;
   explicacao.style.display = "none";
   explicacao.innerText = pergunta.explicacao;
-  divPergunta.appendChild(explicacao);
+  divError.appendChild(explicacao);
+  divPergunta.appendChild(divError);
 }
 
-function verificarResposta(numPergunta) {
+function verificarResposta(indicePergunta) {
   let resposta = document.querySelector(
-    `input[name="q${numPergunta}"]:checked`
+    `input[name="q${indicePergunta}"]:checked`
   );
   if (resposta == null) {
     alert("Por favor, selecione uma resposta.");
     return;
   }
 
-  if (perguntas[numPergunta].opcoes[resposta.value].correta === true) {
+  if (perguntas[indicePergunta].opcoes[resposta.value].correta === true) {
     alert("Resposta correta!");
-    proximaPergunta(numPergunta);
+    proximaPergunta(indicePergunta);
   } else {
-    document.getElementById(`explicacao${numPergunta}`).style.display = "block";
+    document.getElementById(`explicacao${indicePergunta}`).style.display =
+      "block";
     setTimeout(() => {
-      document.getElementById(`explicacao${numPergunta}`).style.display =
+      document.getElementById(`explicacao${indicePergunta}`).style.display =
         "none";
-      proximaPergunta(numPergunta);
-    }, 2000);
+      proximaPergunta(indicePergunta);
+    }, 8000);
   }
 }
 
-function proximaPergunta(numPergunta) {
-  let proximaNumPergunta = numPergunta + 1;
+function proximaPergunta(indicePergunta) {
+  let proximaNumPergunta = indicePergunta + 1;
   if (proximaNumPergunta < perguntas.length) {
     exibirPergunta(proximaNumPergunta);
   } else {
@@ -120,15 +231,14 @@ function proximaPergunta(numPergunta) {
   }
 }
 
-function mostrarPergunta(numPergunta) {
+function mostrarPergunta(indicePergunta) {
   document.getElementById("pergunta").textContent =
-    perguntas[numPergunta - 1].pergunta;
-  let opcoes = document.getElementsByName(`q${numPergunta}`);
+    perguntas[indicePergunta - 1].pergunta;
+  let opcoes = document.getElementsByName(`q${indicePergunta}`);
   for (let i = 0; i < opcoes.length; i++) {
-    opcoes[i].value = perguntas[numPergunta - 1].opcoes[i].opcao;
+    opcoes[i].value = perguntas[indicePergunta - 1].opcoes[i].opcao;
     opcoes[i].nextSibling.textContent =
-      perguntas[numPergunta - 1].opcoes[i].opcao;
+      perguntas[indicePergunta - 1].opcoes[i].opcao;
   }
-  document.getElementById(`explicacao`).style.display = "none";
 }
 mostrarPergunta(1);
